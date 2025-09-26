@@ -1,9 +1,23 @@
-- name: Deploy to Hostinger via SCP
-  uses: appleboy/scp-action@master
-  with:
-    host: ${{ secrets.HOSTINGER_HOST }}
-    username: ${{ secrets.HOSTINGER_USERNAME }}
-    key: ${{ secrets.HOSTINGER_SSH_KEY }}
-    port: 22
-    source: "dist/*"
-    target: "/path/to/destination"
+name: Deploy to Hostinger via SCP
+
+on:
+  push:
+    branches:
+      - main  # Or your deployment branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Deploy to Hostinger via SCP
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USERNAME }}
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          port: 22
+          source: "dist/*"
+          target: "/path/to/destination"
