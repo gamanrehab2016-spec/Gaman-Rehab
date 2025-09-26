@@ -2,7 +2,7 @@
   uses: appleboy/scp-action@master
   with:
     host: ${{ secrets.HOSTINGER_HOST }}
-    username: ${{ secrets.HOSTINGER_USER }}
+    username: ${{ secrets.HOSTINGER_USERNAME }}
     key: ${{ secrets.HOSTINGER_SSH_KEY }}
     port: 22
     source: "dist/*"
