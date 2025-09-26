@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Appointment Booking</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select, textarea { 
+            width: 100%; 
+            padding: 8px; 
+            margin-bottom: 5px; 
+            border: 1px solid #ddd; 
+            border-radius: 4px; 
+        }
+        button { 
+            background: #f97316; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+        }
+        button:hover { background: #ea580c; }
+        .status { 
+            padding: 10px; 
+            margin: 10px 0; 
+            border-radius: 4px; 
+        }
+        .success { background: #d1fae5; color: #065f46; }
+        .error { background: #fee2e2; color: #991b1b; }
+        .loading { background: #f3f4f6; color: #374151; }
+    </style>
+</head>
+<body>
+    <h1>Test Appointment Booking</h1>
+    <p>This page tests the appointment booking functionality and database connection.</p>
+    
+    <div id="status"></div>
+    
+    <form id="testForm">
+        <div class="form-group">
+            <label>Name:</label>
+            <input type="text" name="name" value="Test Patient" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Phone:</label>
+            <input type="tel" name="phone" value="9876543210" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="email" value="test@example.com">
+        </div>
+        
+        <div class="form-group">
+            <label>Service:</label>
+            <select name="service" required>
+                <option value="neuro-rehabilitation">Neuro Rehabilitation</option>
+                <option value="physiotherapy">Physiotherapy</option>
+                <option value="occupational-therapy">Occupational Therapy</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>Appointment Date:</label>
+            <input type="date" name="appointmentDate" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Additional Notes:</label>
+            <textarea name="additionalNotes" rows="3">Test booking from test page</textarea>
+        </div>
+        
+        <button type="submit">Book Test Appointment</button>
+    </form>
+    
+    <h2>Debug Information</h2>
+    <div id="debug"></div>
+    
+    <!-- Firebase Module -->
+    <script type="module" src="firebase.js"></script>
+    
+    <!-- Backend Connection Script -->
+    <script src="backend-connection.js"></script>
+    
+    <!-- Test Backend Script -->
+    <script src="test-backend.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('testForm');
+            const status = document.getElementById('status');
+            const debug = document.getElementById('debug');
+            
+            // Set default date to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.querySelector('input[name="appointmentDate"]').value = tomorrow.toISOString().split('T')[0];
+            
+            // Debug information
+            function updateDebug() {
+                debug.innerHTML = `
+                    <p><strong>Firebase Available:</strong> ${window.db ? 'Yes' : 'No'}</p>
+                    <p><strong>Backend Service:</strong> ${window.backendService ? 'Loaded' : 'Not Loaded'}</p>
+                    <p><strong>Service Initialized:</strong> ${window.backendService?.isInitialized ? 'Yes' : 'No'}</p>
+                    <p><strong>Current Time:</strong> ${new Date().toLocaleString()}</p>
+                `;
+            }
+            
+            // Update debug info every 2 seconds
+            setInterval(updateDebug, 2000);
+            updateDebug();
+            
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                status.innerHTML = '<div class="loading">Submitting appointment...</div>';
+                
+                try {
+                    // Wait for backend service to be ready
+                    let attempts = 0;
+                    while (attempts < 50 && (!window.backendService || !window.backendService.isInitialized)) {
+                        await new Promise(resolve => setTimeout(resolve, 100));
+                        attempts++;
+                    }
+                    
+                    if (!window.backendService) {
+                        throw new Error('Backend service not available');
+                    }
+                    
+                    // Prepare form data
+                    const formData = new FormData(form);
+                    const data = {};
+                    for (let [key, value] of formData.entries()) {
+                        data[key] = value;
+                    }
+                    
+                    console.log('Submitting test appointment:', data);
+                    
+                    // Submit appointment
+                    const result = await window.backendService.bookAppointment(data);
+                    
+                    console.log('Test appointment result:', result);
+                    
+                    if (result.success) {
+                        status.innerHTML = `
+                            <div class="success">
+                                <strong>Success!</strong> Appointment booked successfully.<br>
+                                Reference ID: ${result.id}<br>
+                                ${result.firebaseId ? `Firebase ID: ${result.firebaseId}` : 'Mock mode used'}
+                            </div>
+                        `;
+                        form.reset();
+                    } else {
+                        throw new Error(result.message || 'Unknown error');
+                    }
+                    
+                } catch (error) {
+                    console.error('Test booking error:', error);
+                    status.innerHTML = `
+                        <div class="error">
+                            <strong>Error:</strong> ${error.message}
+                        </div>
+                    `;
+                }
+                
+                updateDebug();
+            });
+        });
+    </script>
+</body>
+</html>

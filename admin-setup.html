@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon for browser tab -->
+    <link rel="icon" href="images/Gaman Rehabilitation Center logo.png" type="image/png">
+    <link rel="shortcut icon" href="images/Gaman Rehabilitation Center logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="images/Gaman Rehabilitation Center logo.png">
+    <title>Admin Setup - Gaman Rehabilitation Center</title>
+    <style>
+        /* Simple, clean styles for admin setup */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .setup-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+        }
+        
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo-image {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .logo-gaman {
+            color: #f97316; /* Custom orange */
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 1.2;
+        }
+        
+        .logo-rehabilitation {
+            color: #4d7c0f; /* Custom green */
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .setup-description {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .setup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        input {
+            padding: 12px 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #f97316;
+            box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2);
+        }
+        
+        button {
+            background-color: #f97316;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background-color: #ea580c;
+        }
+        
+        .status-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .success-message {
+            background-color: #d1fae5;
+            color: #047857;
+            display: none;
+        }
+        
+        .error-message {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            display: none;
+        }
+        
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #4d7c0f;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .back-link:hover {
+            color: #365314;
+            text-decoration: underline;
+        }
+        
+        .password-requirements {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="setup-container">
+        <div class="logo-container">
+            <img src="images/Gaman Rehabilitation Center logo.png" alt="Gaman Logo" class="logo-image">
+            <div class="logo-text">
+                <span class="logo-gaman">Gaman</span>
+                <span class="logo-rehabilitation">Rehabilitation Center</span>
+            </div>
+        </div>
+        
+        <h1>Admin Setup</h1>
+        <p class="setup-description">Create your first admin account to access the dashboard</p>
+        
+        <form id="setupForm" class="setup-form">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="admin@example.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Create a strong password">
+                <p class="password-requirements">Password must be at least 6 characters long</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
+            </div>
+            
+            <button type="submit" id="setupButton">Create Admin Account</button>
+        </form>
+        
+        <div id="successMessage" class="status-message success-message">
+            Admin account created successfully! You can now <a href="admin.html">login</a>.
+        </div>
+        
+        <div id="errorMessage" class="status-message error-message">
+            Error creating admin account. Please try again.
+        </div>
+        
+        <a href="admin.html" class="back-link">← Back to Login Page</a>
+    </div>
+    
+    <script type="module">
+        // Import Firebase services
+        import { 
+            auth, 
+            createUserWithEmailAndPassword
+        } from './firebase.js';
+        
+        // DOM elements
+        const setupForm = document.getElementById('setupForm');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        const setupButton = document.getElementById('setupButton');
+        
+        // Handle setup form submission
+        setupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Hide any previous messages
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            // Validate passwords match
+            if (password !== confirmPassword) {
+                errorMessage.textContent = 'Passwords do not match. Please try again.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            // Validate password length
+            if (password.length < 6) {
+                errorMessage.textContent = 'Password must be at least 6 characters long.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            // Show loading state
+            setupButton.textContent = 'Creating Account...';
+            setupButton.disabled = true;
+            
+            try {
+                // Create user with email and password
+                await createUserWithEmailAndPassword(auth, email, password);
+                
+                // Show success message
+                successMessage.style.display = 'block';
+                setupForm.reset();
+                
+                // Hide form
+                setupForm.style.display = 'none';
+                
+            } catch (error) {
+                console.error('Setup error:', error.message);
+                
+                // Show appropriate error message
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        errorMessage.textContent = 'This email is already in use. Please try another email or go to login.';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage.textContent = 'Invalid email address. Please check and try again.';
+                        break;
+                    case 'auth/weak-password':
+                        errorMessage.textContent = 'Password is too weak. Please use a stronger password.';
+                        break;
+                    default:
+                        errorMessage.textContent = `Error creating account: ${error.message}`;
+                }
+                
+                errorMessage.style.display = 'block';
+                
+                // Reset button state
+                setupButton.textContent = 'Create Admin Account';
+                setupButton.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

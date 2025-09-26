@@ -1,0 +1,243 @@
+/* Filter Styles for Admin Dashboard */
+.filter-container {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+.filter-search {
+    flex: 1;
+    min-width: 200px;
+    position: relative;
+}
+
+.filter-search input {
+    width: 100%;
+    padding: 10px 15px 10px 40px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.filter-search input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Highlight active search filters */
+.filter-search.active input {
+    border-color: #3b82f6;
+    background-color: #f0f7ff;
+}
+
+.filter-search svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+}
+
+.filter-status {
+    min-width: 180px;
+}
+
+.filter-status select {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M8 11l4-4H4l4 4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+}
+
+.filter-status select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Highlight active status filters */
+.filter-status.active select {
+    border-color: #3b82f6;
+    background-color: #f0f7ff;
+    font-weight: 500;
+}
+
+.filter-reset {
+    padding: 10px 15px;
+    background-color: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.filter-reset:hover {
+    background-color: #e2e8f0;
+}
+
+/* Highlight reset button when filters are active */
+.has-active-filters .filter-reset {
+    background-color: #3b82f6;
+    color: white;
+    border-color: #2563eb;
+}
+
+.has-active-filters .filter-reset:hover {
+    background-color: #2563eb;
+}
+
+/* Filter summary styling */
+.filter-summary {
+    margin-top: 10px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* No results message */
+.empty-state-message {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #f8fafc;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.empty-state-message p {
+    margin-bottom: 15px;
+    color: #64748b;
+}
+
+/* Custom status select styling for filter dropdown */
+select option[value="Pending"] {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+select option[value="Completed"] {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+select option[value="Cancelled"] {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+select option[value="Rescheduled"] {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+/* Status color coding */
+.status-Pending, .status-pending {
+    background-color: #dbeafe !important;
+    color: #1e40af !important;
+    border-left-color: #3b82f6 !important;
+    border-left-width: 4px !important;
+    border-left-style: solid !important;
+}
+
+.status-Completed, .status-completed {
+    background-color: #dcfce7 !important;
+    color: #166534 !important;
+    border-left-color: #22c55e !important;
+    border-left-width: 4px !important;
+    border-left-style: solid !important;
+}
+
+.status-Cancelled, .status-cancelled {
+    background-color: #fee2e2 !important;
+    color: #991b1b !important;
+    border-left-color: #ef4444 !important;
+    border-left-width: 4px !important;
+    border-left-style: solid !important;
+}
+
+.status-Rescheduled, .status-rescheduled {
+    background-color: #fef3c7 !important;
+    color: #92400e !important;
+    border-left-color: #f59e0b !important;
+    border-left-width: 4px !important;
+    border-left-style: solid !important;
+}
+
+/* Status badge colors */
+.status-badge.status-Pending, .status-badge.status-pending {
+    background-color: #dbeafe !important;
+    color: #1e40af !important;
+    border-color: #93c5fd !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    display: inline-block !important;
+    margin-left: 8px !important;
+}
+
+.status-badge.status-Completed, .status-badge.status-completed {
+    background-color: #dcfce7 !important;
+    color: #166534 !important;
+    border-color: #86efac !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    display: inline-block !important;
+    margin-left: 8px !important;
+}
+
+.status-badge.status-Cancelled, .status-badge.status-cancelled {
+    background-color: #fee2e2 !important;
+    color: #991b1b !important;
+    border-color: #fca5a5 !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    display: inline-block !important;
+    margin-left: 8px !important;
+}
+
+.status-badge.status-Rescheduled, .status-badge.status-rescheduled {
+    background-color: #fef3c7 !important;
+    color: #92400e !important;
+    border-color: #fcd34d !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    display: inline-block !important;
+    margin-left: 8px !important;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .filter-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-search, .filter-status {
+        width: 100%;
+    }
+}
